@@ -1,0 +1,38 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <h1>Edit Category</h1>
+
+    <form name="cForm" id="cForm" class="contact-form" method="post" action="{{ path('category_edit',{'id': category.id}) }}">
+        <fieldset>
+            Category Name:
+            <div>
+                <input name="category[name]" id="cName" class="full-width" placeholder="Category Name" value="{{ category.name }}" type="text">
+            </div>
+            Parent ID:
+            <div class="form-field">
+                <select name="category[parentid]">
+                    <option style="font-weight: bolder;"  value="0">
+                        ANA KATEGORİ
+                    </option>
+                    {% for categoryy in categories %}
+                        {% if categoryy.parentid==0 %}
+                            <option  value="{{ categoryy.id }}" {% if categoryy.id==category.parentid %}selected{% endif %} >
+                                {{ categoryy.name }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="submit btn btn-success btn--primary btn--large full-width">Save</button>
+
+        </fieldset>
+    </form>
+
+    <a class="btn btn-sm btn-default" href="{{ path('category_index') }}">back to list</a>
+
+    {{ include('category/_delete_form.html.twig') }}
+{% endblock %}

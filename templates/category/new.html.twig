@@ -1,0 +1,36 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+
+{% block body %}
+    <h1>Create new Category</h1>
+
+    <form name="cForm" id="cForm" class="contact-form" method="post" action="{{ path('category_new') }}">
+        <fieldset>
+            Category Name:
+            <div>
+                <input name="category[name]" id="cName" class="full-width" placeholder="Category Name" value="" type="text">
+            </div>
+            Parent ID:
+            <div class="form-field">
+                <select name="category[parentid]">
+                    <option style="font-weight: bolder;"  value="0">
+                        ANA KATEGORİ
+                    </option>
+                    {% for category in categories %}
+                        {% if category.parentid==0 %}
+                            <option  value="{{ category.id }}">
+                                {{ category.name }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+<br>
+            <button type="submit" class="submit btn btn-success btn--primary btn--large full-width">Save</button>
+
+        </fieldset>
+    </form>
+
+    <a class="btn btn-sm btn-default" href="{{ path('category_index') }}">back to list</a>
+{% endblock %}

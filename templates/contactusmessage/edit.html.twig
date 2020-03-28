@@ -1,0 +1,13 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Contactusmessage{% endblock %}
+
+{% block body %}
+    <h1>Edit Contactusmessage</h1>
+
+    {{ include('contactusmessage/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-sm btn-default"  href="{{ path('contactusmessage_index') }}">back to list</a>
+
+    {{ include('contactusmessage/_delete_form.html.twig') }}
+{% endblock %}

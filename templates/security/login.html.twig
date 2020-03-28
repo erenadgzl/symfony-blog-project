@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+<style>
+    .gotohome {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-left: 25% ;
+        cursor: pointer;
+        width: 46%;
+    }
+    .aaa{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .xxx {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .xxx:hover {
+        background-color: #45a049;
+    }
+
+    .bbb div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+    body{
+        background-color: #ebebeb;
+    }
+    .bbb{
+        margin: auto;
+        width: 50%;
+        margin-top: 10%;
+        padding: 10px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="bbb">
+<form method="post" >
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control aaa" placeholder="Email" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control aaa" placeholder="Password" required>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    <button class="btn btn-lg btn-primary xxx" type="submit">
+        Sign in
+    </button>
+</form>
+</div>
+    <a style="background-color: #0f74a8" class="gotohome" href="{{ path('user_registration') }}">
+        Register Page
+    </a>
+    <a style="margin-top: 5px; background-color: #b5b5b5" class="gotohome" href="{{ path('home') }}">
+        Go to Home Page
+    </a>
+{% endblock %}

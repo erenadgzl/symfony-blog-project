@@ -1,0 +1,41 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Contactusmessage index{% endblock %}
+
+{% block body %}
+    <h1>Contactusmessage index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contactusmessage in contactusmessages %}
+            <tr>
+                <td>{{ contactusmessage.id }}</td>
+                <td>{{ contactusmessage.name }}</td>
+                <td>{{ contactusmessage.email }}</td>
+                <td>{{ contactusmessage.subject }}</td>
+                <td>{{ contactusmessage.message }}</td>
+                <td>{{ contactusmessage.status ? 'Okundu' : 'Okunmadı' }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ path('contactusmessage_show', {'id': contactusmessage.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

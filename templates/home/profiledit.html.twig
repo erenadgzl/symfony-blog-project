@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ data.description }}">
+    <meta name="keywords" content="{{ data.keywords }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Profile</title>
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/profil/bootstrap.min.css">
+    <script src="/profil/jquery.min.js"></script>
+    <script src="/profil/bootstrap.min.js"></script>
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/frontend/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/frontend/favicon.ico" type="image/x-icon">
+
+</head>
+<body style="background-color:#DCDCDC " id="top">
+<!-- preloader
+    ================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+{% block content %}
+    <br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Edit Profile</h1>
+
+                    <form name="users1" method="post" action="{{ path('profile_edit') }}">
+                        <div id="users1"><div>
+                                <label for="users1_email" class="required">Email</label>
+                                <input type="text" id="users1_email" name="users1[email]"  maxlength="180" value="{{ app.user.email }}">
+                            </div>
+                            <div>
+                                <label for="users1_name">Name</label>
+                                <input type="text" id="users1_name" name="users1[name]" maxlength="255" value="{{ app.user.name }}">
+                            </div>
+                            <div>
+                                <label for="users1_password" class="required">Password</label>
+                                <input type="text" id="users1_password" name="users1[password]" value="password" >
+                            </div>
+                            <input type="hidden" id="users1__token" name="users1[_token]" value="{{ csrf_token('edit-item') }}">
+                        </div>
+                        <button class="btn">Update</button>
+                    </form>
+                    <div class="form-group row">
+                        <div class="offset-4 col-8">
+                            <a href="{{ path('home') }}"><button name="submit" class="btn btn-success">Go to home page</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+</body>
+</html>

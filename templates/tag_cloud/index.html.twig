@@ -1,0 +1,36 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}TagCloud index{% endblock %}
+
+{% block body %}
+    <h1>TagCloud index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tag</th>
+                <th>Post</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag_cloud in tag_clouds %}
+            <tr>
+                <td>{{ tag_cloud.id }}</td>
+                <td>{{ tag_cloud.tag }}</td>
+                <td>{{ tag_cloud.post }}</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="{{ path('tag_cloud_edit', {'id': tag_cloud.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-success" href="{{ path('tag_cloud_new') }}">Create new</a>
+{% endblock %}

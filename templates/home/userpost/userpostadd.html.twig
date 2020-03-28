@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ data.description }}">
+    <meta name="keywords" content="{{ data.keywords }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Profile</title>
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/profil/bootstrap.min.css">
+    <script src="/profil/jquery.min.js"></script>
+    <script src="/profil/bootstrap.min.js"></script>
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/frontend/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/frontend/favicon.ico" type="image/x-icon">
+
+</head>
+<body style="background-color:#DCDCDC " id="top">
+<!-- preloader
+    ================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+{% block content %}
+    <div style="margin-left:200px;">
+    <h1>Your Posts</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Hit</th>
+            <th>Category</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.status ? 'Onaylandı' : 'Onaylanmadı' }}</td>
+                <td>{{ post.hit }}</td>
+                <td>{{ post.category }}</td>
+                <td>
+                    <a class="btn btn-sm btn-success" target="_blank" href="{{ path('post_image_index', {'id': post.id}) }}">ADD IMAGE
+                        {% if post.shortcontent== null %}:empty{% else %}
+                        <img style="height: 30px;width: 30px" src="{{ post.shortcontent }}"></a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-primary" target="_blank"  href="{{ path('post_galery_index', {'id': post.id}) }}">ADD GALLERY</a>
+                    <a class="btn btn-sm btn-danger" target="_blank" href="{{ path('post_tagcloud_index', {'id': post.id}) }}">ADD TAGCLOUD</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('user_post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-success" href="{{ path('user_post_new') }}">Create new</a>
+        <a class="btn btn-sm btn-danger" href="{{ path('home') }}">Back to Home</a>
+    </div>
+{% endblock %}
+
+
+
+</body>
+</html>
+{% block script %}
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+
+        function popitup(url) {
+            newwindow=window.open(url,'Copy URL','height=500,width=400');
+            if (window.focus) {newwindow.focus()}
+            return false;
+        }
+    </script>
+{% endblock %}

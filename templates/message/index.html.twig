@@ -1,0 +1,45 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Message index{% endblock %}
+
+{% block body %}
+    <h1>Message index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Alıcı</th>
+                <th>Gönderen</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message.id }}</td>
+                <td>{{ message.subject }}</td>
+                <td>{{ message.message }}</td>
+                <td>{{ message.receiver }}</td>
+                <td>{{ message.sender }}</td>
+                <td>{{ message.status ? 'Okundu' : 'Okunmadı' }}</td>
+                <td>
+                    {% if message.sender.id|number_format != app.user.id|number_format  %}
+                    <a class="btn btn-sm btn-danger" href="{{ path('message_new', {'receiverid': message.sender.id}) }}) }}">send reply</a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-primary" href="{{ path('message_show', {'id': message.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

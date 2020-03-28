@@ -1,0 +1,13 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit TagCloud{% endblock %}
+
+{% block body %}
+    <h1>Edit TagCloud</h1>
+
+    {{ include('tag_cloud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-sm btn-default" href="{{ path('tag_cloud_index') }}">back to list</a>
+
+    {{ include('tag_cloud/_delete_form.html.twig') }}
+{% endblock %}

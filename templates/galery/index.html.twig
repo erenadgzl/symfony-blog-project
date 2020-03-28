@@ -1,0 +1,136 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Galery index{% endblock %}
+{% block stylesheets %}<style>
+    .top-alert {
+        position: fixed;
+        margin: 0 auto;
+        width: 100%;
+        z-index: 100000;
+        left: 0;
+        padding: 20px;
+        display: inline-block;
+        text-align: center;
+
+    }
+    .top-alert .alert {
+        width: auto !important;
+        height: 100%;
+        display: inline;
+        position: relative;
+        margin: 0;
+    }
+    .top-alert .alert .close {
+        position: absolute;
+        top: 11px;
+        right: 10px;
+        color: inherit;
+    }
+
+</style>{% endblock %}
+{% block body %}
+    <h1 style="display: inline-block;">Galery index</h1>
+    {% set myArray = [] %}
+    {% for galery in galeries %}
+        {% if galery.part in myArray %}
+        {% else %}
+            {% set myArray = myArray|merge([ galery.part ]) %}
+        {% endif %}
+    {% endfor %}
+<form action="{{ path('galery_index') }}" method="post">
+    <select name="galeri" style="margin-left: 20px">
+
+        {% for galery in myArray|sort %}
+            <option  value='{{ galery }}' {% if galery==galerino %}selected{% endif %}>Galeri {{ galery }}</option>
+
+        {% endfor %}
+    </select>
+    <input type="submit" class="btn btn-sm btn-danger" value="Show" />
+</form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+
+                <th>Slider</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for galery in galeries %}
+            {% if galerino==galery.part %}
+            <tr>
+                <td>{{ galery.id }}</td>
+                <td>{% if galery.name==null %}
+                        Add image
+                    {% else %}
+                        <img style="height: 50px;width: 50px" src="{{  asset('uploads') }}/images/{{ galery.name }}">
+                        <h1 style="font-size: 0px;width: 0px;display: inline-block;" id="item-desc-{{ galery.id }}" >{{  asset('uploads') }}/images/{{ galery.name }}</h1>
+                        <input class="btn btn-sm btn-default" data-desc-ref="item-desc-{{ galery.id }}" type="button" value="COPY URL" id="btn" onclick="status(this)">
+                    {% endif %}
+                </td>
+                <td>{{ galery.slider ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ path('galery_show', {'id': galery.id}) }}">show</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('galery_edit', {'id': galery.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-success" href="{{ path('galery_new') }}">Create new</a>
+
+{% endblock %}
+{% block script %}
+<script>
+    function copyToClipboard(text) {
+
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", text);
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+    }
+
+    function status(clickedBtn) {
+        var text = document.getElementById(clickedBtn.dataset.descRef).innerText;
+
+        copyToClipboard(text);
+        success('Copied')
+    }
+    window.success = function(msg) {
+        var dom = '<div class="top-alert"><div class="alert alert-success alert-dismissible fade in " role="alert"><i class="glyphicon glyphicon-ok"></i> ' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+        var jdom = $(dom);
+        jdom.hide();
+        $("body").append(jdom);
+        jdom.fadeIn();
+        setTimeout(function() {
+            jdom.fadeOut(function() {
+                jdom.remove();
+            });
+        }, 2000);
+    }
+</script>
+
+{% endblock %}

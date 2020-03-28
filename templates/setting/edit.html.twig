@@ -1,0 +1,36 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Setting{% endblock %}
+{% block stylesheets %}
+<style>
+    form div div label {
+        width: 100%;
+    }
+    form div div input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+    <script src="/ckeditor/ckeditor.js"></script>
+{% endblock %}
+{% block body %}
+    <h1>Edit Setting</h1>
+
+    {{ include('setting/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-sm btn-success" href="{{ path('setting_index') }}">back to settings</a>
+
+{% endblock %}
+{% block script %}
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'setting_aboutus' );
+        CKEDITOR.replace( 'setting_contanctus' );
+    </script>
+{% endblock %}

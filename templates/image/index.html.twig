@@ -1,0 +1,117 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Image index{% endblock %}
+{% block stylesheets %}<style>
+    .top-alert {
+        position: fixed;
+        margin: 0 auto;
+        width: 100%;
+        z-index: 100000;
+        left: 0;
+        padding: 20px;
+        display: inline-block;
+        text-align: center;
+
+    }
+    .top-alert .alert {
+        width: auto !important;
+        height: 100%;
+        display: inline;
+        position: relative;
+        margin: 0;
+    }
+    .top-alert .alert .close {
+        position: absolute;
+        top: 11px;
+        right: 10px;
+        color: inherit;
+    }
+
+</style>{% endblock %}
+{% block body %}
+    <h1>Image index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for image in images %}
+            <tr>
+                <td>{{ image.id }}</td>
+                <td>
+                    {% if image.name==null %}
+                    Add image
+                    {% else %}
+                        <img style="height: 50px;width: 50px" src="{{  asset('uploads') }}/images/{{ image.name }}">
+                        <h1 style="font-size: 0px;width: 0px;display: inline-block;" id="item-desc-{{ image.id }}" >{{  asset('uploads') }}/images/{{ image.name }}</h1>
+                        <input class="btn btn-sm btn-default" data-desc-ref="item-desc-{{ image.id }}" type="button" value="COPY URL" id="btn" onclick="status(this)">
+
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ path('image_show', {'id': image.id}) }}">show</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('image_edit', {'id': image.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-success" href="{{ path('image_new') }}">Create new</a>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function copyToClipboard(text) {
+
+            if (window.clipboardData && window.clipboardData.setData) {
+                // IE specific code path to prevent textarea being shown while dialog is visible.
+                return clipboardData.setData("Text", text);
+
+            } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = text;
+                textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+                } catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+
+        function status(clickedBtn) {
+            var text = document.getElementById(clickedBtn.dataset.descRef).innerText;
+
+            copyToClipboard(text);
+            success('Copied')
+        }
+        window.success = function(msg) {
+            var dom = '<div class="top-alert"><div class="alert alert-success alert-dismissible fade in " role="alert"><i class="glyphicon glyphicon-ok"></i> ' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+            var jdom = $(dom);
+            jdom.hide();
+            $("body").append(jdom);
+            jdom.fadeIn();
+            setTimeout(function() {
+                jdom.fadeOut(function() {
+                    jdom.remove();
+                });
+            }, 2000);
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Post{% endblock %}
+{% block stylesheets %}
+    <style>
+        div #post label{
+            width: 100%;
+        }
+        div #post textarea{
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+    <script src="/ckeditor/ckeditor.js"></script>
+{% endblock %}
+{% block body %}
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <th>Short_content</th>
+                <td><img style="height: 300px;width: 300px" src="{{ post.shortcontent }}"></td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td><textarea name="post_content" id="post_content">{{ post.content }}</textarea></td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ post.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Hit</th>
+                <td>{{ post.hit }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-default" href="{{ path('post_index') }}">back to list</a>
+
+    <a class="btn btn-sm btn-warning" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+
+    {{ include('post/_delete_form.html.twig') }}
+{% endblock %}
+{% block script %}
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'post_content' );
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,57 @@
+
+<!-- s-footer
+================================================== -->
+<footer class="s-footer">
+
+    <div class="s-footer__main">
+        <div class="row">
+
+            <div class="col-six tab-full s-footer__about">
+
+                <h4>About {{ data.title }}</h4>
+
+                {{ data.aboutus|raw }}
+
+            </div> <!-- end s-footer__about -->
+
+
+            <div class="s-footer__bottom">
+                <div class="row">
+
+                    <div class="col-six">
+                        <ul class="footer-social">
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="{{ data.facebook }}"><i class="fab fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="{{ data.twitter }}"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="{{ data.instagram }}"><i class="fab fa-instagram"></i></a>
+                            </li>
+
+                        </ul>
+                        <div class="entry__tags">
+                            <h5 style="color: white">Tags: </h5>
+                            <span class="entry__tax-list entry__tax-list--pill">
+                             {% for tag in tags %}
+                            <a style="border: 1px solid white" href="{{ path('tag',{'id': tag.id,'page': 1}) }}">{{ tag.name }}</a>
+                             {% endfor %}
+                        </span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div> <!-- end s-footer__bottom -->
+
+        </div>
+    </div> <!-- end s-footer__main -->
+
+
+    <div class="go-top">
+        <a class="smoothscroll" title="Back to Top" href="#top"></a>
+    </div>
+
+</footer> <!-- end s-footer -->

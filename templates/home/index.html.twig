@@ -1,0 +1,12 @@
+{% extends 'frontend.html.twig' %}
+
+{% block description %}{{ data.description }}{% endblock %}
+{% block keywords %}{{ data.keywords }}{% endblock %}
+{% block title %}{{ data.title }} Anasayfa{% endblock %}
+ {% block stylesheets %}
+ {% endblock %}
+
+
+{% block slider %} {{ include('home/slider.html.twig') }} {% endblock %}
+{% block content %} {{ include('home/content.html.twig') }} {% endblock %}
+{% block extra %} {{ include('home/extra.html.twig') }} {% endblock %}

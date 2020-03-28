@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="{{ data.description }}">
+    <meta name="keywords" content="{{ data.keywords }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Messages</title>
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/profil/bootstrap.min.css">
+    <script src="/profil/jquery.min.js"></script>
+    <script src="/profil/bootstrap.min.js"></script>
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/frontend/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/frontend/favicon.ico" type="image/x-icon">
+
+</head>
+<body style="background-color:#DCDCDC" id="top">
+<!-- preloader
+    ================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+{% block content %}
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Messages</h4>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 300px;overflow-y: scroll;">
+                            <div class="col-md-12">
+                                {% for mesaj in mesajlar %}
+                                    {% if adminid==mesaj.sender_id %}
+                                       <strong>Admin</strong><br>
+                                    {% else %}
+                                        <strong>You</strong><br>
+                                    {% endif %}
+                                    subject:{{ mesaj.subject }}<br>
+                                    message:{{ mesaj.message }}<br>
+
+                                {% endfor %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="post" action="{{ path('profile_message') }}">
+                                    <input name="message[receiver]" id="cName" value="{{ adminid }}" type="hidden">
+                                    <input name="message[sender]" id="cEmail"  value="{{ app.user.id }}" type="hidden">
+                                    <input name="message[status]"  value="0" type="hidden">
+                                    <div class="form-group row">
+                                        <label for="username" class="col-4 col-form-label">Subject</label>
+                                        <div class="col-8">
+                                            <input id="username" name="message[subject]" placeholder="Subject" class="form-control here" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="publicinfo" class="col-4 col-form-label">Message</label>
+                                        <div class="col-8">
+                                            <textarea placeholder="Your Message" id="publicinfo" name="message[message]" cols="40" rows="4" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="offset-4 col-8">
+                                            <button name="submit" type="submit" class="btn btn-primary">Send message</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="form-group row">
+                                    <div class="offset-4 col-8">
+                                        <a href="{{ path('home') }}"><button name="submit" class="btn btn-success">Go to home page</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+</body>
+</html>

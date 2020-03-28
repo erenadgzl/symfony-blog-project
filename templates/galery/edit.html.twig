@@ -1,0 +1,25 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Galery{% endblock %}
+
+{% block body %}
+    <h1>Edit Galery</h1>
+
+    <form action="{{ path('galery_edit',{'id' : galery.id}) }}" method="post" enctype="multipart/form-data">
+        Part:   <input placeholder="Galery Number" name="galery[part]" value="{{ galery.part }}" type="number"><br><br>Status:
+        <select  name='galery[slider]'>
+            <option value='0'>False</option>
+            <option value='1'>True</option>
+        </select><br><br>
+        <img style="max-height: 50px;max-width: 50px" src="{{  asset('uploads') }}/images/{{ galery.name }}">
+        Select image to upload:<br>
+        <input type="hidden" value="{{ galery.name }}" name="galery[name]"><br>
+        <input type="file" name="imagename" id="fileToUpload"><br>
+        <input type="submit" value="Update Image" name="submit">
+
+    </form><br>
+
+    <a class="btn btn-sm btn-default" href="{{ path('galery_index') }}">back to list</a><br><br>
+
+    {{ include('galery/_delete_form.html.twig') }}
+{% endblock %}

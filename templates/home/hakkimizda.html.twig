@@ -1,0 +1,34 @@
+{% extends 'frontend.html.twig' %}
+
+{% block description %}{{ data.description }}{% endblock %}
+{% block keywords %}{{ data.keywords }}{% endblock %}
+{% block title %}{{ data.title }} Hakkımızda{% endblock %}
+
+
+{% block content %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep">About {{ data.title }} </h1>
+                {{ data.aboutus|raw }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-full s-content__main">
+                <p>
+                    <img src="/frontend/images/thumbs/about/about-1000.jpg" srcset="/frontend/images/thumbs/about/about-2000.jpg 2000w,
+                             /frontend/images/thumbs/about/about-1000.jpg 1000w,
+                             /frontend/images/thumbs/about/about-500.jpg 500w" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                </p>
+
+
+
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section>
+{% endblock %}
+{% block extra %} {{ include('home/extra.html.twig') }} {% endblock %}

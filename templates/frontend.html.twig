@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/frontend/css/base.css">
+    <link rel="stylesheet" href="/frontend/css/vendor.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="/frontend/js/modernizr.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/frontend/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/frontend/favicon.ico" type="image/x-icon">
+
+</head>
+<body id="top">
+<!-- preloader
+    ================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+{{ include('home/header.html.twig') }}
+{% block slider %}{% endblock %}
+{% block content %}{% endblock %}
+{% block extra %}{% endblock %}
+{{ include('home/footer.html.twig') }}
+{% block javascripts %}
+    <!-- Java Script
+      ================================================== -->
+    <script src="/frontend/js/jquery-3.2.1.min.js"></script>
+    <script src="/frontend/js/plugins.js"></script>
+    <script src="/frontend/js/main.js"></script>
+{% endblock %}
+</body>
+</html>

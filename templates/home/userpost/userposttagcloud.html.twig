@@ -1,0 +1,25 @@
+<title>ADD TAG</title>
+{% for posts in post %}
+{% for tag in tags %}
+    {% if tag.id==posts.tag_id %}
+    <p>{{ tag.name }}</p>
+    {% endif %}
+{% endfor %}
+{% else %}
+    no records found
+{% endfor %}
+
+<form action="{{ path('post_tagcloud_index', {'id': postid}) }}" method="post" >
+
+    Select tag to add:
+    <input type="hidden" name="tag_cloud[post]" value="{{ postid|number_format }}">
+    <select name="tag_cloud[tag]">
+
+        {% for tag in tags %}
+            <option  value="{{ tag.id|number_format }}">
+                {{ tag.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="ADD TAG" name="submit">
+</form>

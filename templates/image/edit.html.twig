@@ -1,0 +1,18 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Image{% endblock %}
+
+{% block body %}
+    <h1>Edit Image</h1>
+
+    <form action="{{ path('image_edit',{'id' : image.id}) }}" method="post" enctype="multipart/form-data">
+        <img style="max-height: 50px;max-width: 50px" src="{{  asset('uploads') }}/images/{{ image.name }}">Select image to upload:
+        <input type="hidden" value="{{ image.name }}" name="image[name]">
+        <input type="file" name="imagename" id="fileToUpload">
+        <input type="submit" value="Update Image" name="submit">
+
+    </form>
+    <a class="btn btn-sm btn-default" href="{{ path('image_index') }}">back to list</a>
+
+    {{ include('image/_delete_form.html.twig') }}
+{% endblock %}

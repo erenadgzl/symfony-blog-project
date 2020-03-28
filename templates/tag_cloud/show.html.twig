@@ -1,0 +1,22 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}TagCloud{% endblock %}
+
+{% block body %}
+    <h1>TagCloud</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tag_cloud.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-default" href="{{ path('tag_cloud_index') }}">back to list</a>
+
+    <a class="btn btn-sm btn-warning" href="{{ path('tag_cloud_edit', {'id': tag_cloud.id}) }}">edit</a>
+
+    {{ include('tag_cloud/_delete_form.html.twig') }}
+{% endblock %}

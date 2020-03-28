@@ -1,0 +1,41 @@
+<!-- featured
+================================================== -->
+<section class="s-featured">
+    <div class="row">
+        <div class="col-full">
+
+            <div class="featured-slider featured" data-aos="zoom-in">
+                {% if popularposts is not empty %}
+                {% if popularposts|length > 2 %}
+                {% for i in 0..2 %}
+
+
+                <div class="featured__slide">
+                    <div class="entry">
+
+                        <div class="entry__background" style="background-image:url('{{ popularposts[i].shortcontent }}');"></div>
+
+                        <div class="entry__content">
+                            <span class="entry__category"><a href="{{ path('kategori',{'id': popularposts[i].category.id,'page':1}) }}">{{ popularposts[i].category }}</a></span>
+
+                            <h1><a href="{{ path('post',{'id': popularposts[i].id}) }}" title="">{{ popularposts[i].title }}</a></h1>
+
+                            <div class="entry__info">
+
+                                <ul class="entry__meta">
+                                    <li><a>{{ popularposts[i].user }}</a></li>
+                                    <li>{{ popularposts[i].createdat|date("m/d/Y") }}</li>
+                                </ul>
+                            </div>
+                        </div> <!-- end entry__content -->
+
+                    </div> <!-- end entry -->
+                </div> <!-- end featured__slide -->
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+            </div> <!-- end featured -->
+
+        </div> <!-- end col-full -->
+    </div>
+</section> <!-- end s-featured -->

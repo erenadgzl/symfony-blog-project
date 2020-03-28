@@ -1,0 +1,16 @@
+<title>ADD GALLERY</title>
+    {% for galery in galeries %}
+
+      <img style="height: 200px;width: 200px" src="{{  asset('uploads') }}/images/{{ galery.name }}">
+
+    {% else %}
+        no records found
+    {% endfor %}
+
+    <form action="{{ path('post_galery_index', {'id': postid}) }}" method="post" enctype="multipart/form-data">
+        <input  name="galery[part]" value="{{ postid }}" type="hidden">
+        <input  name="galery[slider]" value="1" type="hidden"><br>
+        Select image to upload:
+        <input type="file" name="imagename" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>

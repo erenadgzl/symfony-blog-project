@@ -1,0 +1,54 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <a class="btn btn-sm btn-success" href="{{ path('post_new') }}">Create new</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Hit</th>
+                <th>User</th>
+                <th>Category</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                {% if post.status ==1 %}
+                    <td><a class="btn btn-sm btn-danger" href="{{ path("post_statu_index", {"id": post.id}) }}">Kaldır</a></td>
+                    {% else %}
+                        <td><a class="btn btn-sm btn-success" href="{{ path("post_statu_index2", {"id": post.id}) }}">Onayla</a></td>
+                {% endif %}
+                <td>{{ post.hit }}</td>
+                <td>{{ post.user }}</td>
+                <td>{{ post.category }}</td>
+                <td>
+
+                    <a class="btn btn-sm btn-success" target="_blank" href="{{ path('post_image_index', {'id': post.id}) }}">ADD IMAGE
+                        {% if post.shortcontent== null %}:empty{% else %}
+                        <img style="height: 30px;width: 30px" src="{{ post.shortcontent }}"></a>
+                    {% endif %}
+                    <a class="btn btn-sm btn-primary" target="_blank"  href="{{ path('post_galery_index', {'id': post.id}) }}">ADD GALLERY</a>
+                    <a class="btn btn-sm btn-danger" target="_blank"  href="{{ path('post_tagcloud_index', {'id': post.id}) }}">TAGCLOUD</a>
+                    <a class="btn btn-sm btn-default" href="{{ path('post_show', {'id': post.id}) }}">show</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

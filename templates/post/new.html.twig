@@ -1,0 +1,74 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}New Post{% endblock %}
+{% block stylesheets %}
+    <style>
+        div #post label{
+            width: 100%;
+        }
+        div #post textarea{
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+    <script src="/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Create new Post</h1>
+    <form method="post" action="{{ path('post_new') }}">
+        <input name="post[status]" id="cstatus" value="0" type="hidden">
+        <input name="post[hit]" id="chit" value="0" type="hidden">
+        <input name="post[sort]" id="csort" value="1" type="hidden">
+        <input name="post[user]" id="cuser"  value="{{ app.user.id }}" type="hidden">
+        <div class="form-group row">
+
+            <div class="col-8">
+                <label for="username" class="col-4 col-form-label">Title</label>
+                <input id="username" name="post[title]" placeholder="Title" class="form-control here" type="text">
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-8">
+                <label for="publicinfo" class="col-4 col-form-label">Content</label>
+                <textarea placeholder="Your Message" id="post_content" name="post[content]" cols="40" rows="4" class="form-control"></textarea>
+            </div>
+        </div>
+        <label for="publicinfo" class="col-4 col-form-label">Category</label><br>
+        <select name="post[category]">
+
+            {% for category in categories %}
+                <option {% if category.parentid==0 %}style="font-weight: bolder;"{% endif %} value="{{ category.id }}">
+                    {{ category.name }}
+                </option>
+
+            {% endfor %}
+        </select>
+        <br><br>
+        <div class="form-group row">
+            <div class="offset-2 col-8">
+                <button name="submit" type="submit" class="btn btn-success">Create Post</button>
+                <a href="{{ path('post_index') }}" class="btn btn-primary">Back to Post List</a>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'post_content' );
+
+        function popitup(url) {
+            newwindow=window.open(url,'Copy URL','height=500,width=400');
+            if (window.focus) {newwindow.focus()}
+            return false;
+        }
+    </script>
+{% endblock %}

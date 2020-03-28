@@ -1,0 +1,11 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}New Contactusmessage{% endblock %}
+
+{% block body %}
+    <h1>Create new Contactusmessage</h1>
+
+    {{ include('contactusmessage/_form.html.twig') }}
+
+    <a class="btn btn-sm btn-default" href="{{ path('contactusmessage_index') }}">back to list</a>
+{% endblock %}

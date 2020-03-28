@@ -1,0 +1,28 @@
+{% extends 'frontend.html.twig' %}
+
+{% block description %}{{ data.description }}{% endblock %}
+{% block keywords %}{{ data.keywords }}{% endblock %}
+{% block title %}{{ data.title }} Gallery{% endblock %}
+
+{% block content %}
+    <!-- featured
+    ================================================== -->
+    <section class="s-featured">
+        <div class="row">
+            <div class="col-full">
+
+                <div class="featured-slider featured" data-aos="zoom-in">
+                    {% for galeri in galeriSelected%}
+                        <div class="featured__slide">
+                            <img style="width: 100%;height: 100%" src="{{  asset('uploads') }}/images/{{ galeri.name }}">
+                        </div> <!-- end featured__slide -->
+                    {% endfor %}
+
+                </div> <!-- end featured -->
+
+            </div> <!-- end col-full -->
+        </div>
+    </section> <!-- end s-featured -->
+
+{% endblock %}
+{% block extra %} {{ include('home/extra.html.twig') }} {% endblock %}

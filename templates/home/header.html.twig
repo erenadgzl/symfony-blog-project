@@ -1,0 +1,65 @@
+
+<!-- header
+================================================== -->
+<header class="s-header header">
+
+    <div class="header__logo">
+        <a class="logo" href="index.html">
+            <a style='font-size: 28px;font-family: "Arial Black", Gadget, sans-serif;color: black;' href="{{ path('home') }}">{{ data.title }}</a>
+        </a>
+    </div> <!-- end header__logo -->
+
+
+
+    <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+    <nav class="header__nav-wrap">
+
+        <h2 class="header__nav-heading h6">Navigate to</h2>
+
+        <ul class="header__nav">
+            <li class="current"><a href="{{ path('home') }}" title="">Home</a></li>
+            <li class="has-children">
+                <a href="#0" title="">Categories</a>
+                <ul class="sub-menu">
+                    {% for category in categories %}
+                        {% if category.parentid == 0 %}
+                        <li><a href="{{ path('kategori',{'id': category.id,'page':1}) }}">{{ category.name }}</a>
+                            <ul>
+                            {% for categ in categories %}
+                                {% if categ.parentid == category.id %}
+                                <li><a href="{{ path('kategori',{'id': categ.id,'page':1}) }}">{{ categ.name }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li><a href="{{ path('hakkimizda') }}" title="">About</a></li>
+            <li><a href="{{ path('iletisim') }}" title="">Contact</a></li>
+            {% if is_granted('ROLE_ADMIN') %}   <li><a style="color: red" href="{{ path('admin') }}"><strong>Admin Panel</strong></a></li>
+                <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-off"></span> Logout </a></li>
+            {% elseif is_granted('ROLE_USER')%}<li> <strong style="color: red">Wellcome {{ app.user.name }} </strong><a href=""></a></li>
+            <li>
+                <a href="#0" title=""><strong>PROFILE</strong></a>
+            <ul class="sub-menu">
+                <li><a href="{{ path('profile_message') }}"><strong > Messages </strong></a></li>
+                <li><a href="{{ path('profile_edit') }}"><strong > Profil </strong></a></li>
+                <li><a href="{{ path('profile_post') }}"><strong > Posts </strong></a></li>
+                <li><a href="{{ path('app_logout') }}"> Logout </a></li>
+            </ul>
+            </li>
+            {% else %}<li><a style="color: red" href="{{ path('app_login') }}"><strong>Login</strong></a></li>
+                <li><a style="color: red" href="{{ path('user_registration') }}"><strong>Register</strong></a></li>
+            {% endif %}
+        </ul> <!-- end header__nav -->
+
+
+
+
+    </nav> <!-- end header__nav-wrap -->
+
+</header> <!-- s-header -->
+

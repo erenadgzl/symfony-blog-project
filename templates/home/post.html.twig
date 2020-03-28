@@ -1,0 +1,255 @@
+{% extends 'frontend.html.twig' %}
+
+{% block description %}{{ data.description }}{% endblock %}
+{% block keywords %}{{ data.keywords }}{% endblock %}
+{% block title %}{{ post.title }} {% endblock %}
+ {% block stylesheets %}
+     <style>
+         * {box-sizing:border-box}
+         body {font-family: Verdana,sans-serif;}
+         .mySlides {display:none}
+         /* Slideshow container */
+         .slideshow-container {
+             max-width: 1000px;
+             position: relative;
+             margin: auto;
+         }
+         /* Caption text */
+         .text {
+             color: #f2f2f2;
+             font-size: 15px;
+             padding: 8px 12px;
+             position: absolute;
+             bottom: 8px;
+             width: 100%;
+             text-align: center;
+         }
+         /* Number text (1/3 etc) */
+         .numbertext {
+             color: #f2f2f2;
+             font-size: 12px;
+             padding: 8px 12px;
+             position: absolute;
+             top: 0;
+         }
+         /* The dots/bullets/indicators */
+         .dot {
+             height: 13px;
+             width: 13px;
+             margin: 0 2px;
+             background-color: #bbb;
+             border-radius: 50%;
+             display: inline-block;
+             transition: background-color 0.6s ease;
+         }
+         .active {
+             background-color: #717171;
+         }
+         /* Fading animation */
+         .fade {
+             -webkit-animation-name: fade;
+             -webkit-animation-duration: 1.5s;
+             animation-name: fade;
+             animation-duration: 1.5s;
+         }
+         @-webkit-keyframes fade {
+             from {opacity: .4}
+             to {opacity: 1}
+         }
+         @keyframes fade {
+             from {opacity: .4}
+             to {opacity: 1}
+         }
+         /* On smaller screens, decrease text size */
+         @media only screen and (max-width: 300px) {
+             .text {font-size: 11px}
+         }
+     </style>
+ {% endblock %}
+
+
+{% block content %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <article class="row entry format-standard">
+
+            <div class="entry__media col-full">
+                <center><div class="entry__post-thumb">
+                    <img src="{{ post.shortcontent }}" srcset="{{ post.shortcontent }} 2000w,
+                                 {{ post.shortcontent }} 1000w,
+                                 {{ post.shortcontent }} 500w" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                </div></center>
+            </div>
+
+            <div class="entry__header col-full">
+                <h1 class="entry__header-title display-1">
+                    {{ post.title }}
+                </h1>
+                <ul class="entry__header-meta">
+                    <li class="date">{{ post.createdat|date("m/d/Y") }}</li>
+                    <li class="byline">
+                        By
+                        <a href="#0">{{ post.user }}</a>
+                    </li>
+                    <li class="byline">
+                        Hit:
+                        <a href="#0">{{ post.hit }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div  class="slideshow-container">
+                {% set foo = 0 %}
+                {% for image in galleries %}
+                    {% if image.part==post.id %}
+                <center><div  class="mySlides fade">
+                    <img src="{{  asset('uploads') }}/images/{{ image.name }}" style="width:800px;height: 600px">
+                </div></center>
+                        {% set foo = foo+1 %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <div style="text-align:center">
+            {% for i in 1..foo %}
+                <span class="dot"></span>
+            {% endfor %}
+            </div>
+            <div class="col-full entry__main">
+                {{ post.content|raw }}
+
+
+
+                <div class="entry__taxonomies">
+
+                    <div class="entry__tags">
+                        {% if tagscloud is not empty %}
+                        <h5>Tags: </h5>
+                        <span class="entry__tax-list entry__tax-list--pill">
+                             {% for tag in tagscloud %}
+                                 <a href="{{ path('tag',{'id': tag.tag.id,'page': 1}) }}">{{ tag.tag }}</a>
+                             {% endfor %}
+
+                        </span>
+                        {% endif %}
+                    </div> <!-- end entry__tags -->
+                </div> <!-- end s-content__taxonomies -->
+
+
+            </div> <!-- s-entry__main -->
+
+        </article> <!-- end entry/article -->
+
+
+        <div class="comments-wrap">
+
+            <div id="comments" class="row">
+                <div class="col-full">
+
+                    <h3 class="h2">{{ comments|length }} Comments</h3>
+
+                    <!-- START commentlist -->
+                    <ol class="commentlist">
+                        {% for comment in comments %}
+                        {% if comment.status==1 %}
+                        <li class="depth-1 comment">
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <div class="comment__author">{{ comment.user }}</div>
+
+                                    <div class="comment__meta">
+                                        <div class="comment__time">{{ comment.createdat|date("m/d/Y") }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="comment__text">
+                                    {{ comment.comment }}
+                                </div>
+
+                            </div>
+
+                        </li> <!-- end comment level 1 -->
+                            {% else %}
+                                <li class="depth-1 comment">
+
+                                    <div style="color: grey" class="comment__content">
+
+                                        <div class="comment__info">
+                                            <div class="comment__author">{{ comment.user }}</div>
+
+                                            <div class="comment__meta">
+                                                <div class="comment__time">{{ comment.createdat|date("m/d/Y") }}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="comment__text">
+                                            comment deleted
+                                        </div>
+
+                                    </div>
+
+                                </li> <!-- end comment level 1 -->
+                         {% endif %}
+                        {% endfor %}
+
+                    </ol>
+                    <!-- END commentlist -->
+
+                </div> <!-- end col-full -->
+            </div> <!-- end comments -->
+            {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+            <div class="row comment-respond">
+
+                <!-- START respond -->
+                <div id="respond" class="col-full">
+
+                    <h3 class="h2">Add Comment</h3>
+
+                    <form name="contactForm" id="contactForm" method="post" action="{{ path('post',{'id': post.id}) }}" autocomplete="off">
+                        <fieldset>
+                            <div class="message form-field">
+                                <textarea name="comment[comment]" id="cMessage" class="full-width" placeholder="Your Message*"></textarea>
+                            </div>
+                            <input type="hidden" name="comment[user]" value="{{ app.user.id }}">
+                            <input type="hidden" name="comment[post]" value="{{ post.id }}">
+                            <input type="hidden" name="comment[status]" value="1">
+                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Add Comment" type="submit">
+
+                        </fieldset>
+                    </form> <!-- end form -->
+
+                </div>
+                <!-- END respond-->
+
+            </div> <!-- end comment-respond -->
+            {% endif %}
+        </div> <!-- end comments-wrap -->
+
+    </section>
+
+
+{% endblock %}
+{% block extra %} {{ include('home/extra.html.twig') }}
+    <script>
+        var slideIndex = 0;
+        showSlides();
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex> slides.length) {slideIndex = 1}
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+            setTimeout(showSlides, 2000); // Bu alandan resimlerin geçiş süresini değiştirebilirsiniz.
+        }
+    </script>
+{% endblock %}
+

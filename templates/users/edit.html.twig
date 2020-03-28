@@ -1,0 +1,29 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Edit Users{% endblock %}
+
+{% block body %}
+    <h1>Edit Users</h1>
+
+    <form name="users1" method="post">
+        <div id="users1"><div>
+                <label for="users1_email" class="required">Email</label>
+                <input type="text" id="users1_email" name="users1[email]"  maxlength="180" value="{{ user.email }}">
+            </div>
+            <div>
+                <label for="users1_name">Name</label>
+                <input type="text" id="users1_name" name="users1[name]" maxlength="255" value="{{ user.name }}">
+            </div>
+            <div>
+                <label for="users1_password" class="required">Password</label>
+                <input type="text" id="users1_password" name="users1[password]" value="password" >
+            </div>
+            <input type="hidden" id="users1__token" name="users1[_token]" value="{{ csrf_token('edit-item') }}">
+        </div>
+        <button class="btn">Update</button>
+    </form>
+
+    <a href="{{ path('users_index') }}">back to list</a>
+
+    {{ include('users/_delete_form.html.twig') }}
+{% endblock %}

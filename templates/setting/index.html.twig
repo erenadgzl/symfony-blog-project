@@ -1,0 +1,135 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Setting index{% endblock %}
+
+{% block body %}
+    <h1>Setting index</h1>
+    {% include 'messages.html.twig' %}
+        {% for setting in settings %}
+            <a style="display: block;height: 35px;font-weight: bold;font-size: 17px" class="btn btn-sm btn-danger" href="{{ path('setting_edit', {'id': setting.id}) }}">EDIT</a>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab" aria-expanded="false">Genel Bilgiler</a></li>
+                                <li class=""><a href="#tab5" data-toggle="tab" aria-expanded="false">Sosyal Medya</a></li>
+                                <li class=""><a href="#tab2" data-toggle="tab" aria-expanded="false">SMTP Server</a></li>
+                                <li ><a href="#tab3" data-toggle="tab" aria-expanded="true">Hakkımızda</a></li>
+                                <li ><a href="#tab4" data-toggle="tab" aria-expanded="true">İletişim</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="tab1">
+                                    <table class="table">
+
+                                        <tbody>
+
+                                        <tr>
+                                            <th>Id</th>
+                                            <td>{{ setting.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Title</th>
+                                            <td>{{ setting.title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>{{ setting.description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Keywords</th>
+                                            <td>{{ setting.keywords }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ setting.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telno</th>
+                                            <td>{{ setting.telno }}</td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade " id="tab5">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Facebook</th>
+                                            <td>{{ setting.facebook }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Twitter</th>
+                                            <td>{{ setting.twitter }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Instagram</th>
+                                            <td>{{ setting.instagram }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="tab2">
+
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>Smtpserver</th>
+                                        <td>{{ setting.smtpserver }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Smtpmail</th>
+                                            <td>{{ setting.smtpmail }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Smtppassword</th>
+                                            <td>{{ setting.smtppassword }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Smtpport</th>
+                                            <td>{{ setting.smtpport }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade " id="tab3">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <td>{{ setting.aboutus }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade " id="tab4">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <td>{{ setting.contanctus }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.panel-->
+                </div><!--/.col-->
+
+            </div>
+
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+
+
+<!-- s-extra
+================================================== -->
+<section class="s-extra">
+
+    <div class="row">
+
+        <div class="col-seven md-six tab-full popular">
+            <h3>Popular Posts</h3>
+
+            <div class="block-1-2 block-m-full popular__posts">
+                {% for post in popularposts %}
+
+                <article class="col-block popular__post">
+                    <a href="{{ path('post',{'id': post.id}) }}" class="popular__thumb">
+                        <img src="{{ post.shortcontent }}" alt="">
+                    </a>
+                    <h5>{{ post.title }}</h5>
+                    <section class="popular__meta">
+                        <span class="popular__author"><span>By</span> {{ post.user }}</span>
+                        <span class="popular__date"><span>on</span> <time datetime="2018-06-14">{{ post.createdat|date("m/d/Y") }}</time></span>
+                    </section>
+                </article>
+                {% endfor %}
+            </div> <!-- end popular_posts -->
+        </div> <!-- end popular -->
+
+        <div class="col-four md-six tab-full end">
+            <div class="row">
+                <div class="col-six md-six mob-full categories">
+                    <h3>Categories</h3>
+
+                    <ul class="linklist">
+                        {% for category in categories %}
+                            <li><a href="{{ path('kategori',{'id': category.id,'page':1}) }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div> <!-- end categories -->
+
+                <div class="col-six md-six mob-full sitelinks">
+                    <h3>Site Links</h3>
+
+                    <ul class="linklist">
+                        <li class="current"><a href="{{ path('home') }}" title="">Home</a></li>
+                        <li><a href="{{ path('hakkimizda') }}" title="">About</a></li>
+                        <li><a href="{{ path('iletisim') }}" title="">Contact</a></li>
+                    </ul>
+                </div> <!-- end sitelinks -->
+            </div>
+        </div>
+    </div> <!-- end row -->
+
+</section> <!-- end s-extra -->
+

@@ -1,0 +1,41 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %}Users index{% endblock %}
+
+{% block body %}
+    <h1>Users index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles[0] }}{% if user.roles[0]=='ROLE_USER' %}<br><a href="{{ path('admin_yap', {'id': user.id}) }}" class="btn btn-sm btn-danger">admin yetkisi ver</a>{% else %}<br><a href="{{ path('user_yap', {'id': user.id}) }}" class="btn btn-sm btn-warning">user yap</a>{% endif %}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ path('users_show', {'id': user.id}) }}">show</a>
+                    <a class="btn btn-sm btn-warning" href="{{ path('users_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-success" href="{{ path('users_new') }}">Create new</a>
+{% endblock %}
