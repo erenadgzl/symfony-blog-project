@@ -2,7 +2,7 @@
 
 Symfony Blog Project
 <br>
-run with console: 'php bin/console server:run'
+run with console: `php bin/console server:run`
 <br>
 Admin user : email= 'admin@admin' password= '123456'
 ![screencapture-127-0-0-1-8000-2020-03-28-21_21_34](https://user-images.githubusercontent.com/53342974/77831132-47848680-713e-11ea-8cc9-ca2eeedeb2b9.png)
